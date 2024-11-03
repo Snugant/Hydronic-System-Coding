@@ -1,0 +1,17 @@
+const int controlPin[16] = {2,3,4,5,6,7,8,9,10,11,12,A0,A1,A2,A3,A4}; // define pins
+
+const int triggerType = LOW;// your relay type
+int loopDelay = 1000;// delay in loop
+int tmpStat =1;
+
+
+void loop() {
+  for(int i=0; i<16; i++)
+  {
+    pinMode(controlPin[i], OUTPUT);// set pin as output
+    if(triggerType ==LOW){
+      digitalWrite(controlPin[i], HIGH); // set initial state OFF for low trigger relay
+    }else{
+       digitalWrite(controlPin[i], LOW); // set initial state OFF for high trigger relay     
+    }
+  }
