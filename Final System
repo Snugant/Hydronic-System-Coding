@@ -1,0 +1,32 @@
+// Lists for each Solenoid
+const int controlPin[16] = {2,3,4,5,6,7,8,9,10,11,12,A0,A1,A2,A3,A4}; // define pins
+const int desiredTemp[16] = {20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20};
+const int actualTemp[16] = {17,30,11,21,20,39,30,60,0,25,32,47,42,18,32,10}; // Haven't figured out how to connect to home assistant yet so these are placeholder to test the system
+
+// Debounce Stuff
+const int debounceDelay = 60000; // 60 seconds
+unsigned long lastDebounceTime[16] = {0};
+
+void setup() {
+  
+}
+
+void loop() {
+  for(int i=0; i<16; i++)
+  {
+    pinMode(controlPin[i], OUTPUT); // set pin as output
+
+    if(actualTemp[i] < desiredTemp[i]){
+      if (millis() - lastDebounceTime[i] > debounceDelay) {
+        digitalWrite(controlPin[i], HIGH);
+        lastDebounceTime[i] = millis(); 
+      }
+    }else{
+      if (millis() - lastDebounceTime[i] > debounceDelay) {
+      digitalWrite(controlPin[i], LOW);
+      lastDebounceTime[i] = millis();
+
+      }
+    }
+  }
+}
