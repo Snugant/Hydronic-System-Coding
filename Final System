@@ -8,7 +8,7 @@ const int debounceDelay = 60000; // 60 seconds
 unsigned long lastDebounceTime[16] = {0};
 
 void setup() {
-  
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -20,11 +20,21 @@ void loop() {
       if (millis() - lastDebounceTime[i] > debounceDelay) {
         digitalWrite(controlPin[i], HIGH);
         lastDebounceTime[i] = millis(); 
+
+        // For Debugging
+        Serial.print("Solenoid ");
+        Serial.print(i);
+        Serial.println(" turned ON");
       }
     }else{
       if (millis() - lastDebounceTime[i] > debounceDelay) {
-      digitalWrite(controlPin[i], LOW);
-      lastDebounceTime[i] = millis();
+        digitalWrite(controlPin[i], LOW);
+        lastDebounceTime[i] = millis();
+
+        // For Debugging
+        Serial.print("Solenoid ");
+        Serial.print(i);
+        Serial.println(" turned OFF");
 
       }
     }
